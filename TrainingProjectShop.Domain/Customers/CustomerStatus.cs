@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrainingProjectShop.Domain.Customer
+namespace TrainingProjectShop.Domain.Customers
 {
     public enum CustomerStatus
     {

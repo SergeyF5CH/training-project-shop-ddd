@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrainingProjectShop.Domain.Customer
+namespace TrainingProjectShop.Domain.Customers
 {
     public class Customer
     {
@@ -33,6 +33,34 @@ namespace TrainingProjectShop.Domain.Customer
             Status = CustomerStatus.Active;
         }
 
-        //сделать методы блокировки пользователя, разблокировки, удаления, тесты
+        public void Block()
+        {
+            if (Status != CustomerStatus.Active)
+            {
+                throw new InvalidOperationException("Only Active customers can be blocked");
+            }
+
+            Status = CustomerStatus.Blocked;
+        }
+
+        public void Unblocked()
+        {
+            if (Status != CustomerStatus.Blocked)
+            {
+                throw new InvalidOperationException("Only Blocked customers can be unblocked");
+            }
+
+            Status = CustomerStatus.Active;
+        }
+
+        public void Delete()
+        {
+            if (Status == CustomerStatus.Deleted)
+            {
+                throw new InvalidOperationException("Customer is already deleted");
+            }
+
+            Status = CustomerStatus.Deleted;
+        }
     }
 }
