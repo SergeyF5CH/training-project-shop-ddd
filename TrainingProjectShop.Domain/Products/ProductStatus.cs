@@ -1,4 +1,4 @@
-﻿namespace TrainingProjectShop.API.Products
+﻿namespace TrainingProjectShop.Domain.Products
 {
     public enum ProductStatus
     {

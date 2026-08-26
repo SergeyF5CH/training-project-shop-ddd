@@ -1,3 +1,5 @@
+using TrainingProjectShop.Domain.Products;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

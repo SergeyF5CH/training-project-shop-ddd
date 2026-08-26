@@ -1,18 +1,28 @@
-﻿namespace TrainingProjectShop.API.Products
+﻿namespace TrainingProjectShop.Domain.Products
 {
     public class Product
     {
         public Guid Id { get; private set; }
         public string Name { get; private set; }
-        public decimal Price { get; private set; }
+        public Price Price { get; private set; }
         public string? Description { get; private set; }
         public ProductStatus Status { get; private set; }
 
         public Product(Guid id, 
             string name, 
-            decimal price, 
-            string description)
+            Price price, 
+            string? description)
         {
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentException("Product id can't be empty",nameof(id));
+            }
+
+            if(string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("Product name can't be empty", nameof(name));
+            }
+
             Id = id;
             Name = name;
             Price = price;
@@ -38,16 +48,11 @@
             Status = ProductStatus.Archived;
         }
 
-        public void ChangePrice(decimal price)
+        public void ChangePrice(Price price)
         {
             if (Status == ProductStatus.Archived)
             {
                 throw new InvalidOperationException("Archived products can't change price");
-            }
-
-            if(price <= 0)
-            {
-                throw new ArgumentException("Price must be greatet than 0");
             }
 
             Price = price;
