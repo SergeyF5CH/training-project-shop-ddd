@@ -18,7 +18,7 @@
                 throw new ArgumentException("Product id can't be empty",nameof(id));
             }
 
-            if(string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentException("Product name can't be empty", nameof(name));
             }
