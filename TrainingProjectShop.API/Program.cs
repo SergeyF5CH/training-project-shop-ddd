@@ -1,4 +1,6 @@
-using TrainingProjectShop.Domain.Products;
+using TrainingProjectShop.Application;
+using TrainingProjectShop.Application.Orders;
+using TrainingProjectShop.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,9 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure();
 
-// Configure the HTTP request pipeline.
+var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
@@ -18,5 +21,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapPost("/orders", async (
+    Guid customerId,
+    OrderService orderService) =>
+{
+    var orderId = await orderService.CreateOrderAsync(customerId);
+
+    return Results.Ok(orderId);
+});
 
 app.Run();

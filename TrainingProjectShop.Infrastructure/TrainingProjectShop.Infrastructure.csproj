@@ -1,19 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.11" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TrainingProjectShop.Application\TrainingProjectShop.Application.csproj" />
     <ProjectReference Include="..\TrainingProjectShop.Domain\TrainingProjectShop.Domain.csproj" />
-    <ProjectReference Include="..\TrainingProjectShop.Infrastructure\TrainingProjectShop.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
