@@ -12,5 +12,12 @@ namespace TrainingProjectShop.Infrastructure.Orders
 
             return Task.CompletedTask;
         }
+
+        public Task<Order?> GetByIdAsync(Guid id)
+        {
+            var order = _orders.FirstOrDefault(x => x.Id == id);
+
+            return Task.FromResult(order);
+        }
     }
 }

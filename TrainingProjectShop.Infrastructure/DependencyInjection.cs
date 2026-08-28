@@ -1,6 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TrainingProjectShop.Application.Customers;
 using TrainingProjectShop.Application.Orders;
+using TrainingProjectShop.Application.Products;
+using TrainingProjectShop.Infrastructure.Customers;
 using TrainingProjectShop.Infrastructure.Orders;
+using TrainingProjectShop.Infrastructure.Products;
 
 namespace TrainingProjectShop.Infrastructure
 {
@@ -10,6 +14,8 @@ namespace TrainingProjectShop.Infrastructure
             this IServiceCollection services)
         {
             services.AddSingleton<IOrderRepository, OrderRepository>();
+            services.AddSingleton<ICustomerRepository, CustomerRepository>();
+            services.AddSingleton<IProductRepository, ProductRepository>();
 
             return services;
         }

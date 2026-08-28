@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TrainingProjectShop.Application.Customers;
 using TrainingProjectShop.Application.Orders;
-using TrainingProjectShop.Domain.Orders;
+using TrainingProjectShop.Application.Products;
 
 namespace TrainingProjectShop.Application
 {
@@ -10,6 +11,8 @@ namespace TrainingProjectShop.Application
             this IServiceCollection services)
         {
             services.AddScoped<OrderService>();
+            services.AddScoped<CustomerService>();
+            services.AddScoped<ProductService>();
 
             return services;
         }
