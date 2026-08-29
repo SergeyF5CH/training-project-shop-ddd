@@ -30,6 +30,8 @@
             Status = ProductStatus.Draft;
         }
 
+        private Product() { }
+
         public void Publish()
         {
             if (Status != ProductStatus.Draft)

@@ -26,6 +26,8 @@ namespace TrainingProjectShop.Domain.Orders
             Quantity = quantity;
         }
 
+        private OrderItem() { }
+
         public decimal GetTotal()
         {
             return Price.Amount * Quantity;

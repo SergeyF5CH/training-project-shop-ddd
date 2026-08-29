@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using TrainingProjectShop.API.Customers;
 using TrainingProjectShop.API.Orders;
 using TrainingProjectShop.API.Products;
@@ -7,10 +8,13 @@ using TrainingProjectShop.Application.Orders;
 using TrainingProjectShop.Application.Products;
 using TrainingProjectShop.Domain.Products;
 using TrainingProjectShop.Infrastructure;
+using TrainingProjectShop.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddDbContext<ShopDbContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -114,6 +118,33 @@ app.MapGet("/orders/{orderId:guid}", async (
             .ToList());
 
     return Results.Ok(dto);
+});
+
+app.MapPost("/orders/{orderId:guid}/confirm", async (
+    Guid orderId,
+    OrderService orderService) => 
+{
+    await orderService.ConfirmAsync(orderId);
+
+    return Results.Ok();
+});
+
+app.MapPost("/orders/{orderId:guid}/pay", async (
+    Guid orderId,
+    OrderService orderService) =>
+{
+    await orderService.PayAsync(orderId);
+
+    return Results.Ok();
+});
+
+app.MapPost("/orders/{orderId:guid}/cancel", async (
+    Guid orderId,
+    OrderService orderService) =>
+{
+    await orderService.CancelAsync(orderId);
+
+    return Results.Ok();
 });
 
 app.Run();

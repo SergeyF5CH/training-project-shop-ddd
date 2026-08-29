@@ -28,6 +28,8 @@ namespace TrainingProjectShop.Domain.Orders
             Status = OrderStatus.Created;
         }
 
+        private Order() { }
+
         public void AddItem(Guid productId,
             Price price,
             int quantity)

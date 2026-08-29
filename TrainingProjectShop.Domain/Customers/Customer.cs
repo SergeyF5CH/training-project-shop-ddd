@@ -27,6 +27,8 @@
             Status = CustomerStatus.Active;
         }
 
+        private Customer() { }
+
         public void Block()
         {
             if (Status != CustomerStatus.Active)

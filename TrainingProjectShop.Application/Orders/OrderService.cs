@@ -67,5 +67,41 @@ namespace TrainingProjectShop.Application.Orders
         {
             return await _orderRepository.GetByIdAsync(orderId);
         }
+
+        public async Task ConfirmAsync(Guid orderId)
+        {
+            var order = await _orderRepository.GetByIdAsync(orderId);
+
+            if (order is null)
+            {
+                throw new InvalidOperationException("Order not found");
+            }
+
+            order.Confirm();
+        }
+
+        public async Task PayAsync(Guid orderId)
+        {
+            var order = await _orderRepository.GetByIdAsync(orderId);
+
+            if (order is null)
+            {
+                throw new InvalidOperationException("Order not found");
+            }
+
+            order.Pay();
+        }
+
+        public async Task CancelAsync(Guid orderId)
+        {
+            var order = await _orderRepository.GetByIdAsync(orderId);
+
+            if (order is null)
+            {
+                throw new InvalidOperationException("Order not found");
+            }
+
+            order.Cancel();
+        }
     }
 }
