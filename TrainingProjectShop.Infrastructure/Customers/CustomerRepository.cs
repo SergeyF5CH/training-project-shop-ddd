@@ -1,24 +1,28 @@
-﻿using TrainingProjectShop.Application.Customers;
+﻿using Microsoft.EntityFrameworkCore;
+using TrainingProjectShop.Application.Customers;
 using TrainingProjectShop.Domain.Customers;
+using TrainingProjectShop.Infrastructure.Database;
 
 namespace TrainingProjectShop.Infrastructure.Customers
 {
     public class CustomerRepository : ICustomerRepository
     {
-        private readonly List<Customer> _customers = new List<Customer>();
+        private readonly ShopDbContext _dbContext;
 
-        public Task AddAsync(Customer customer)
+        public CustomerRepository(ShopDbContext dbContext)
         {
-            _customers.Add(customer);
-
-            return Task.CompletedTask;
+            _dbContext = dbContext;
         }
 
-        public Task<Customer?> GetByIdAsync(Guid id)
+        public async Task AddAsync(Customer customer)
         {
-            var customer = _customers.FirstOrDefault(x => x.Id == id);
+            await _dbContext.Customers.AddAsync(customer);
+            await _dbContext.SaveChangesAsync();
+        }
 
-            return Task.FromResult(customer);
+        public async Task<Customer?> GetByIdAsync(Guid id)
+        {
+            return await _dbContext.Customers.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

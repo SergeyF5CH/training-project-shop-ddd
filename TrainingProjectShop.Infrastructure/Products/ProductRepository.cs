@@ -1,24 +1,28 @@
-﻿using TrainingProjectShop.Application.Products;
+﻿using Microsoft.EntityFrameworkCore;
+using TrainingProjectShop.Application.Products;
 using TrainingProjectShop.Domain.Products;
+using TrainingProjectShop.Infrastructure.Database;
 
 namespace TrainingProjectShop.Infrastructure.Products
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly List<Product> _products = new List<Product>();
+        private readonly ShopDbContext _dbContext;
 
-        public Task AddAsync(Product product)
+        public ProductRepository(ShopDbContext dbContext)
         {
-            _products.Add(product);
-
-            return Task.CompletedTask;
+            _dbContext = dbContext;
         }
 
-        public Task<Product?> GetByIdAsync(Guid id)
+        public async Task AddAsync(Product product)
         {
-            var product = _products.FirstOrDefault(x => x.Id == id);
+            await _dbContext.Products.AddAsync(product);
+            await _dbContext.SaveChangesAsync();
+        }
 
-            return Task.FromResult(product);
+        public async Task<Product?> GetByIdAsync(Guid id)
+        {
+            return await _dbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

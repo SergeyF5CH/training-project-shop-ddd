@@ -6,5 +6,6 @@ namespace TrainingProjectShop.Application.Orders
     {
         Task AddAsync(Order order);
         Task<Order?> GetByIdAsync(Guid id);
+        Task SaveChangesAsync();
     }
 }

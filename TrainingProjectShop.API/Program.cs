@@ -9,6 +9,7 @@ using TrainingProjectShop.Application.Products;
 using TrainingProjectShop.Domain.Products;
 using TrainingProjectShop.Infrastructure;
 using TrainingProjectShop.Infrastructure.Database;
+using TrainingProjectShop.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,8 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastructure();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

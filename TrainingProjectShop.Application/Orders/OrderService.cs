@@ -61,6 +61,8 @@ namespace TrainingProjectShop.Application.Orders
                 product.Id,
                 product.Price,
                 quantity);
+
+            await _orderRepository.SaveChangesAsync();
         }
 
         public async Task<Order?> GetByIdAsync(Guid orderId)
@@ -78,6 +80,8 @@ namespace TrainingProjectShop.Application.Orders
             }
 
             order.Confirm();
+
+            await _orderRepository.SaveChangesAsync();
         }
 
         public async Task PayAsync(Guid orderId)
@@ -90,6 +94,8 @@ namespace TrainingProjectShop.Application.Orders
             }
 
             order.Pay();
+
+            await _orderRepository.SaveChangesAsync();
         }
 
         public async Task CancelAsync(Guid orderId)
@@ -102,6 +108,8 @@ namespace TrainingProjectShop.Application.Orders
             }
 
             order.Cancel();
+
+            await _orderRepository.SaveChangesAsync();
         }
     }
 }

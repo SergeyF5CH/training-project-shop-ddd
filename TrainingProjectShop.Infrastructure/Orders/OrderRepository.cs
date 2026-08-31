@@ -1,23 +1,33 @@
-﻿using TrainingProjectShop.Application.Orders;
+﻿using Microsoft.EntityFrameworkCore;
+using TrainingProjectShop.Application.Orders;
 using TrainingProjectShop.Domain.Orders;
+using TrainingProjectShop.Infrastructure.Database;
 
 namespace TrainingProjectShop.Infrastructure.Orders
 {
     public class OrderRepository : IOrderRepository
     {
-        private readonly List<Order> _orders = new();
-        public Task AddAsync(Order order)
-        {
-            _orders.Add(order);
+        private readonly ShopDbContext _dbContext;
 
-            return Task.CompletedTask;
+        public OrderRepository(ShopDbContext dbContext)
+        {
+            _dbContext = dbContext;
         }
 
-        public Task<Order?> GetByIdAsync(Guid id)
+        public async Task AddAsync(Order order)
         {
-            var order = _orders.FirstOrDefault(x => x.Id == id);
+            await _dbContext.Orders.AddAsync(order);
+            await _dbContext.SaveChangesAsync();
+        }
 
-            return Task.FromResult(order);
+        public async Task<Order?> GetByIdAsync(Guid id)
+        {
+            return await _dbContext.Orders.Include(x => x.Items).FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

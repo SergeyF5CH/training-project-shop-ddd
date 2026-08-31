@@ -13,9 +13,9 @@ namespace TrainingProjectShop.Infrastructure
         public static IServiceCollection AddInfrastructure(
             this IServiceCollection services)
         {
-            services.AddSingleton<IOrderRepository, OrderRepository>();
-            services.AddSingleton<ICustomerRepository, CustomerRepository>();
-            services.AddSingleton<IProductRepository, ProductRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             return services;
         }
