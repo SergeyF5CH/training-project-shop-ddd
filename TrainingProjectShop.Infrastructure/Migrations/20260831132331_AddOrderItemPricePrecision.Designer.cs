@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TrainingProjectShop.Infrastructure.Database;
@@ -11,9 +12,11 @@ using TrainingProjectShop.Infrastructure.Database;
 namespace TrainingProjectShop.Infrastructure.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    partial class ShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260831132331_AddOrderItemPricePrecision")]
+    partial class AddOrderItemPricePrecision
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,9 +122,6 @@ namespace TrainingProjectShop.Infrastructure.Migrations
                                 .HasColumnName("email");
 
                             b1.HasKey("CustomerId");
-
-                            b1.HasIndex("Value")
-                                .IsUnique();
 
                             b1.ToTable("customers");
 

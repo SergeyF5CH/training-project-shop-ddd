@@ -26,6 +26,7 @@ namespace TrainingProjectShop.Infrastructure.Database.Configurations
             {
                 price.Property(x => x.Amount)
                     .HasColumnName("price_amount")
+                    .HasPrecision(18, 2)
                     .IsRequired();
 
                 price.Property(x => x.Currency)

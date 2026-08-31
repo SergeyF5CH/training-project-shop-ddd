@@ -22,6 +22,9 @@ namespace TrainingProjectShop.Infrastructure.Database.Configurations
                     .HasColumnName("email")
                     .IsRequired()
                     .HasMaxLength(320);
+
+                email.HasIndex(x => x.Value)
+                .IsUnique();
             });
         }
     }

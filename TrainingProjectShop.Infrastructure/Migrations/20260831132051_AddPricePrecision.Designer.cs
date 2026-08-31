@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TrainingProjectShop.Infrastructure.Database;
@@ -11,9 +12,11 @@ using TrainingProjectShop.Infrastructure.Database;
 namespace TrainingProjectShop.Infrastructure.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    partial class ShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260831132051_AddPricePrecision")]
+    partial class AddPricePrecision
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,9 +123,6 @@ namespace TrainingProjectShop.Infrastructure.Migrations
 
                             b1.HasKey("CustomerId");
 
-                            b1.HasIndex("Value")
-                                .IsUnique();
-
                             b1.ToTable("customers");
 
                             b1.WithOwner()
@@ -156,8 +156,7 @@ namespace TrainingProjectShop.Infrastructure.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<decimal>("Amount")
-                                .HasPrecision(18, 2)
-                                .HasColumnType("numeric(18,2)")
+                                .HasColumnType("numeric")
                                 .HasColumnName("price_amount");
 
                             b1.Property<string>("Currency")
