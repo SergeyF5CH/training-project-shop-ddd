@@ -41,7 +41,7 @@ app.MapPost("/customers", async (
 {
     var customerId = await customerService.CreateCustomerAsync(dto.Name, dto.Email);
 
-    return Results.Ok(customerId);
+    return Results.Created($"/customers/{customerId}", customerId);
 });
 
 app.MapPost("/products", async (
@@ -57,7 +57,7 @@ app.MapPost("/products", async (
         price,
         dto.Description);
 
-    return Results.Ok(productId);
+    return Results.Created($"/products/{productId}", productId);
 });
 
 app.MapPost("/products/{id:guid}/publish", async (
@@ -66,7 +66,7 @@ app.MapPost("/products/{id:guid}/publish", async (
 {
     await productService.PublishProductAsync(id);
 
-    return Results.Ok();
+    return Results.NoContent();
 });
 
 app.MapPost("/products/{id:guid}/archive", async (
@@ -75,7 +75,7 @@ app.MapPost("/products/{id:guid}/archive", async (
 {
     await productService.ArchiveProductAsync(id);
 
-    return Results.Ok();
+    return Results.NoContent();
 });
 
 app.MapPost("/orders", async (
@@ -84,7 +84,7 @@ app.MapPost("/orders", async (
 {
     var orderId = await orderService.CreateOrderAsync(dto.CustomerId);
 
-    return Results.Ok(orderId);
+    return Results.Created($"/orders/{orderId}", orderId);
 });
 
 app.MapPost("/orders/{orderId:guid}/items", async (
@@ -94,7 +94,7 @@ app.MapPost("/orders/{orderId:guid}/items", async (
 {
     await orderService.AddItemAsync(orderId, dto.ProductId, dto.Quantity);
 
-    return Results.Ok();
+    return Results.NoContent();
 });
 
 app.MapGet("/orders/{orderId:guid}", async (
@@ -129,7 +129,7 @@ app.MapPost("/orders/{orderId:guid}/confirm", async (
 {
     await orderService.ConfirmAsync(orderId);
 
-    return Results.Ok();
+    return Results.NoContent();
 });
 
 app.MapPost("/orders/{orderId:guid}/pay", async (
@@ -138,7 +138,7 @@ app.MapPost("/orders/{orderId:guid}/pay", async (
 {
     await orderService.PayAsync(orderId);
 
-    return Results.Ok();
+    return Results.NoContent();
 });
 
 app.MapPost("/orders/{orderId:guid}/cancel", async (
@@ -147,7 +147,7 @@ app.MapPost("/orders/{orderId:guid}/cancel", async (
 {
     await orderService.CancelAsync(orderId);
 
-    return Results.Ok();
+    return Results.NoContent();
 });
 
 app.Run();
